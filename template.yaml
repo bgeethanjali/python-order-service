@@ -1,0 +1,18 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Order service on an EOL Python runtime (upgrade candidate)
+
+Resources:
+  OrderFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: order_service.handler.handler
+      Runtime: python3.8        # EOL runtime -> upgrade to python3.13
+      MemorySize: 256
+      Timeout: 15
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: /orders
+            Method: post
